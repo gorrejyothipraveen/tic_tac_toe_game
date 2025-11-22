@@ -1,7 +1,9 @@
 import { assertEquals } from "@std/assert";
 import {
-  areOnDiagonal,
-  areOnHorizontalLine,
+isOnAnyOfAxis,
+  isOnDiagonalAxis,
+  isOnHorizontalAxis,
+  isOnVerticalAxis,
   ticTacToe,
 } from "../src/tic_tac_toe.js";
 
@@ -9,38 +11,82 @@ Deno.test("simple test case", () => {
   assertEquals(ticTacToe(), "");
 });
 
-Deno.test("this is not in Diagonal positions", () => {
-  assertEquals(areOnDiagonal([1, 2, 3]), false);
+Deno.test("this is not in DiagonalAxis positions", () => {
+  assertEquals(isOnDiagonalAxis([1, 2, 3]), false);
 });
 
-Deno.test("this is in Diagonal positions", () => {
-  assertEquals(areOnDiagonal([1, 5, 9]), true);
+Deno.test("this is in DiagonalAxis positions", () => {
+  assertEquals(isOnDiagonalAxis([1, 5, 9]), true);
 });
 
-Deno.test("this is in Diagonal positions", () => {
-  assertEquals(areOnDiagonal([3, 5, 7]), true);
+Deno.test("this is in DiagonalAxis positions", () => {
+  assertEquals(isOnDiagonalAxis([3, 5, 7]), true);
 });
 
-Deno.test("this is not in Diagonal positions", () => {
-  assertEquals(areOnDiagonal([3, 5, 8]), false);
+Deno.test("this is not in DiagonalAxis positions", () => {
+  assertEquals(isOnDiagonalAxis([3, 5, 8]), false);
 });
 
-Deno.test("this is not in Diagonal positions", () => {
-  assertEquals(areOnDiagonal([1, 5, 3]), false);
+Deno.test("this is not in DiagonalAxis positions", () => {
+  assertEquals(isOnDiagonalAxis([1, 5, 3]), false);
 });
 
-Deno.test("this is also not in Diagonal positions", () => {
-  assertEquals(areOnDiagonal([7, 5, 9]), false);
+Deno.test("this is also not in DiagonalAxis positions", () => {
+  assertEquals(isOnDiagonalAxis([7, 5, 9]), false);
 });
 
-Deno.test("1st horizontal line", () => {
-  assertEquals(areOnHorizontalLine([1, 2, 3]), true);
+Deno.test("1st horizontal Axis", () => {
+  assertEquals(isOnHorizontalAxis([1, 2, 3]), true);
 });
 
-Deno.test("2nd horizontal line", () => {
-  assertEquals(areOnHorizontalLine([4, 5, 6]), true);
+Deno.test("2nd horizontal Axis", () => {
+  assertEquals(isOnHorizontalAxis([4, 5, 6]), true);
 });
 
-Deno.test("3rd horizontal line", () => {
-  assertEquals(areOnHorizontalLine([7, 8, 9]), true);
+Deno.test("3rd horizontal Axis", () => {
+  assertEquals(isOnHorizontalAxis([7, 8, 9]), true);
+});
+
+Deno.test("this is not in horizontal Axis", () => {
+  assertEquals(isOnHorizontalAxis([1, 4, 7]), false);
+});
+
+Deno.test("this is not in horizontal Axis", () => {
+  assertEquals(isOnHorizontalAxis([3, 6, 9]), false);
+});
+
+Deno.test("this is not in horizontal Axis", () => {
+  assertEquals(isOnHorizontalAxis([2, 5, 7]), false);
+});
+
+Deno.test("1st vertical Axis", () => {
+  assertEquals(isOnVerticalAxis([1, 4, 7]), true);
+});
+
+Deno.test("2nd vertical Axis", () => {
+  assertEquals(isOnVerticalAxis([2, 5, 7]), true);
+});
+
+Deno.test("3rd vertical Axis", () => {
+  assertEquals(isOnVerticalAxis([3, 6, 9]), true);
+});
+
+Deno.test("position exist on vertical Axis", () => {
+  assertEquals(isOnAnyOfAxis([3, 6, 9]), true);
+});
+
+Deno.test("position exist on horizontal axis", () => {
+  assertEquals(isOnAnyOfAxis([7, 8, 9]), true);
+});
+
+Deno.test("exist on DiagonalAxis ", () => {
+  assertEquals(isOnAnyOfAxis([1, 5, 9]), true);
+});
+
+Deno.test("this is position doesn't exist", () => {
+  assertEquals(isOnAnyOfAxis([3, 5, 8]), false);
+});
+
+Deno.test("this is also not exist any where", () => {
+  assertEquals(isOnAnyOfAxis([1, 5, 3]), false);
 });
