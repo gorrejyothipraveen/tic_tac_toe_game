@@ -10,16 +10,6 @@ const positions = {
   "9": [2, 2],
 };
 
-export const ticTacToe = () => {
-  return "";
-};
-
-const axisLines = {
-  verticalLocations: [[1, 4, 7], [2, 5, 7], [3, 6, 9]],
-  horizontalLocations: [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
-  diagonalLocations: [[1, 5, 9], [3, 5, 7]],
-};
-
 export const isOnVerticalAxis = (locations) => {
   const verticalLocations = [[1, 4, 7], [2, 5, 7], [3, 6, 9]];
   return verticalLocations.some((verticalAxis) =>
@@ -41,6 +31,18 @@ export const isOnDiagonalAxis = (locations) => {
   );
 };
 
+const coordinates = [
+  isOnDiagonalAxis,
+  isOnHorizontalAxis,
+  isOnVerticalAxis,
+];
+
+export const isOnAnyOfAxis = (locations) => {
+  return coordinates.some((fnTocall) => fnTocall(locations));
+};
+
+// /============================================
+
 export const isOnAxis = (locations) => {
   const winningLocations = [
     [1, 4, 7],
@@ -57,12 +59,25 @@ export const isOnAxis = (locations) => {
   );
 };
 
-const coordinates = [
-  isOnDiagonalAxis,
-  isOnHorizontalAxis,
-  isOnVerticalAxis,
-];
+export const areOnWinningLocations = (input) => {
+  const landedPositions = subSetsOfInput(input);
+  return landedPositions.some(landedLoction => isOnAxis(landedLoction));
+}
 
-export const isOnAnyOfAxis = (locations) => {
-  return coordinates.some((fnTocall) => fnTocall(locations));
+export const subSetsOfInput = (inputList) => {
+  const actualSubSets = inputList.reduce((subSets, ele) => {
+    const subset = subSets.map(([...set]) => {
+      set.push(ele);
+      return set;
+    });
+    subSets.push(...subset);
+    return subSets;
+  }, [[]]).filter(subSet => subSet.length === 3);
+  return actualSubSets;
+};
+
+
+
+export const ticTacToe = () => {
+  return "";
 };

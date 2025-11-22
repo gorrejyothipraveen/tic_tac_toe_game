@@ -1,5 +1,6 @@
 import { assertEquals } from "@std/assert";
 import {
+areOnWinningLocations,
 isOnAnyOfAxis,
   isOnAxis,
   isOnDiagonalAxis,
@@ -127,3 +128,23 @@ Deno.test("2nd vertical Axis", () => {
 Deno.test("3rd vertical Axis", () => {
   assertEquals(isOnAxis([3, 6, 9]), true);
 });
+
+Deno.test("this is position doesn't exist", () => {
+  assertEquals(isOnAxis([3, 5, 8]), false);
+});
+
+Deno.test("this is also not exist any where", () => {
+  assertEquals(isOnAxis([1, 5, 3]), false);
+});
+
+Deno.test("subsetsInputs", () => {
+  assertEquals(areOnWinningLocations([1, 5, 3, 9]), true);
+});
+
+Deno.test("subsetsInputs", () => {
+  assertEquals(areOnWinningLocations([1, 5, 3, 2  ]), true);
+});
+Deno.test("subsetsInputs", () => {
+  assertEquals(areOnWinningLocations([1, 5, 3, 6]), false);
+});
+
