@@ -14,12 +14,18 @@ export const ticTacToe = () => {
   return "";
 };
 
+const axisLines = {
+  verticalLocations: [[1, 4, 7], [2, 5, 7], [3, 6, 9]],
+  horizontalLocations: [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+  diagonalLocations: [[1, 5, 9], [3, 5, 7]],
+};
+
 export const isOnVerticalAxis = (locations) => {
   const verticalLocations = [[1, 4, 7], [2, 5, 7], [3, 6, 9]];
   return verticalLocations.some((verticalAxis) =>
     locations.every((position) => verticalAxis.includes(position))
   );
-}
+};
 
 export const isOnHorizontalAxis = (locations) => {
   const horizontalLocations = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
@@ -29,18 +35,34 @@ export const isOnHorizontalAxis = (locations) => {
 };
 
 export const isOnDiagonalAxis = (locations) => {
-  const diagonalPositions = [[1, 5, 9], [3, 5, 7]];
-  return diagonalPositions.some((diagonal) =>
+  const diagonalLocations = [[1, 5, 9], [3, 5, 7]];
+  return diagonalLocations.some((diagonal) =>
     locations.every((position) => diagonal.includes(position))
+  );
+};
+
+export const isOnAxis = (locations) => {
+  const winningLocations = [
+    [1, 4, 7],
+    [2, 5, 7],
+    [3, 6, 9],
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 5, 9],
+    [3, 5, 7],
+  ];
+  return winningLocations.some((winlocation) =>
+    locations.every((location) => winlocation.includes(location))
   );
 };
 
 const coordinates = [
   isOnDiagonalAxis,
   isOnHorizontalAxis,
-  isOnVerticalAxis
-]
+  isOnVerticalAxis,
+];
 
 export const isOnAnyOfAxis = (locations) => {
-  return coordinates.some(fnTocall => fnTocall(locations))
-}
+  return coordinates.some((fnTocall) => fnTocall(locations));
+};
