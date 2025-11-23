@@ -46,7 +46,7 @@ export const isOnAnyOfAxis = (locations) => {
 export const isOnAxis = (locations) => {
   const winningLocations = [
     [1, 4, 7],
-    [2, 5, 7],
+    [2, 5, 8],
     [3, 6, 9],
     [1, 2, 3],
     [4, 5, 6],
@@ -77,7 +77,51 @@ export const subSetsOfInput = (inputList) => {
 };
 
 
+const participators = () => {
+  const firstPerson = prompt('enter 1st person name : ');
+  const secondPerson = prompt('enter 2nd person name : ');
+  return [firstPerson, secondPerson]
+}
 
-export const ticTacToe = () => {
-  return "";
+const moveValidator = (entry, entries) => {
+  if(!Boolean(entry)) {
+    console.log('enter the proper input');
+  }
+
+  if(entries.includes(entry)) {
+    console.log('that move is not possible');
+    return false;
+  }
+  return Boolean(entry)
+}
+ 
+const move = (person, entries) => {
+  const entry = parseInt(prompt(`${person} enter your move : `));
+  if(moveValidator(entry, entries)) {
+    return entry;
+  }
+  return move(person, entries);
+}
+
+export const ticTacToe = (firstPersonEntries, secondPersonEntries) => {
+  const [firstPerson, secondPerson] = participators();
+  for(let index = 0; index < 9; index++) {
+    const firstPersonMove = move(firstPerson, firstPersonEntries);
+    firstPersonEntries.push(firstPersonMove);
+
+    if(areOnWinningLocations(firstPersonEntries)) {
+      return `${firstPerson} won the match`;
+    }
+    
+    const secondPersonMove = move(secondPerson, secondPersonEntries);
+    secondPersonEntries.push(secondPersonMove);
+    if(areOnWinningLocations(secondPersonEntries))
+      {
+        return `${secondPerson} won the match`;
+      }
+      console.log(firstPersonEntries, secondPersonEntries);
+  }
+  return "tie";
 };
+
+console.log(ticTacToe([], []));

@@ -1,4 +1,4 @@
-import { assertEquals } from "@std/assert";
+import { assertEquals} from "@std/assert";
 import {
 areOnWinningLocations,
 isOnAnyOfAxis,
@@ -6,12 +6,11 @@ isOnAnyOfAxis,
   isOnDiagonalAxis,
   isOnHorizontalAxis,
   isOnVerticalAxis,
-  ticTacToe,
 } from "../src/tic_tac_toe.js";
 
-Deno.test("simple test case", () => {
-  assertEquals(ticTacToe(), "");
-});
+// Deno.test("simple test case", () => {
+//   assertEquals(ticTacToe(), false);
+// });
 
 Deno.test("this is not in DiagonalAxis positions", () => {
   assertEquals(isOnDiagonalAxis([1, 2, 3]), false);
@@ -142,9 +141,36 @@ Deno.test("subsetsInputs", () => {
 });
 
 Deno.test("subsetsInputs", () => {
-  assertEquals(areOnWinningLocations([1, 5, 3, 2  ]), true);
+  assertEquals(areOnWinningLocations([1, 5, 3, 2]), true);
 });
+
 Deno.test("subsetsInputs", () => {
-  assertEquals(areOnWinningLocations([1, 5, 3, 6]), false);
+  assertEquals(areOnWinningLocations([4, 2, 6, 7, 9]), false);
 });
+
+Deno.test("subsetsInputs", () => {
+  assertEquals(areOnWinningLocations([4, 6 , 9]), false);
+});
+
+Deno.test("tic tac toe", () => {
+  assertEquals(areOnWinningLocations([4, 6 , 9]), false);
+});
+
+Deno.test("1st horizontal line", () => {
+  assertEquals(areOnWinningLocations([1, 2, 3]), true);
+});
+
+Deno.test("failing test case", () => {
+  assertEquals(areOnWinningLocations([2, 4, 9]), false);
+});
+
+Deno.test("failing test case", () => {
+  assertEquals(areOnWinningLocations([2]), false);
+});
+
+Deno.test("7 5 6", () => {
+  assertEquals(areOnWinningLocations([7, 5, 6]), false);
+});
+
+
 
